@@ -125,9 +125,44 @@ class Alert extends TinyReact.Component {
   }
 }
 
+class KeyDemo extends TinyReact.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      persons: [
+        { id: 1, name: "张三" },
+        { id: 2, name: "王武" },
+        { id: 3, name: "里斯" },
+      ]
+    }
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick() {
+    const newState = JSON.parse(JSON.stringify(this.state))
+    // newState.persons.push(newState.persons.shift())
+    // newState.persons.splice(1, 0, { id: 100, name: '赵刚' })
+    newState.persons.pop()
+    this.setState(newState)
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.persons.map(person => (
+            <li key={person.id}>{person.name}</li>
+          ))}
+        </ul>
+        <button onClick={this.handleClick}>按钮</button>
+      </div>
+    )
+  }
+}
+
 // TinyReact.render(<Heart title="Hello React" />, root)
 // TinyReact.render(<Alert name="张三" age={20}/>, root)
-TinyReact.render(<DemoRef />, root)
+// TinyReact.render(<DemoRef />, root)
+TinyReact.render(<KeyDemo />, root)
 
 // setTimeout(() => {
 //   TinyReact.render(<Alert name="李四" age={50}/>, root)
